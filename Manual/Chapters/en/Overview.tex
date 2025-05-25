@@ -1,0 +1,34 @@
+%%%
+%
+% $Autor: Nishan Chandrashekar Poojary$
+% $Datum: today $
+% $Pfad: Overview.tex $
+% $Version: 4620 $
+%
+% !TeX spellcheck = de_DE/GB
+%
+%%%
+
+
+
+\chapter{Overview}
+
+This project delivers a interactive web application for time series forecasting of the NIFTY 50 index using two widely adopted models: AutoRegressive Integrated Moving Average (ARIMA) and Long Short-Term Memory (LSTM) neural network. Built with Streamlit, the application allows users to make stock price predictions with minimal technical setup.
+
+It offers two primary modes of use:
+\begin{itemize}
+	\item \textbf{Next-day prediction} of \textbf{Open and Close prices} using historical data fetched live from Yahoo Finance.
+	\item \textbf{Backtesting and analysis} by selecting any historical date and comparing model predictions to actual prices.
+\end{itemize}
+
+Key features of the application include:
+\begin{itemize}
+	\item Dual-model support: AutoRegressive Integrated Moving Average (ARIMA) for statistical modeling and Long Short-Term Memory (LSTM) for deep learning-based forecasting.
+	\item Simultaneous prediction for both \texttt{Open} and \texttt{Close} stock prices.
+	\item Automatic data acquisition from Yahoo Finance via the \texttt{yfinance} API (Application Programming Interface) for maximum recency and convenience.
+	\item Display of evaluation metrics, including Root Mean Squared Error (RMSE) and Mean Absolute Percentage Error (MAPE), to provide users with interpretable measures of prediction reliability.
+	\item Graphical comparison between predicted and actual values using interactive time series plots.
+	\item Summary tables that contextualize predictions within statistical confidence ranges based on recent performance.
+\end{itemize}
+
+This tool is intended for analysts, researchers, and enthusiasts who wish to apply machine learning (ML) and statistical models for financial forecasting, without needing to write code or build complex environments. The National Stock Exchange Fifty(NIFTY) 50 index, being India’s most recognized benchmark stock index, makes this tool particularly valuable for studying market behavior, validating trading strategies, or educational demonstrations in time series modeling.

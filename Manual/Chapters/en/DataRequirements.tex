@@ -1,0 +1,44 @@
+%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Datum: 2019-03-05 08:03:15Z $
+% $Pfad: DataRequirements.tex $
+% $Version: 4250 $
+% !TeX spellcheck = en_GB/de_DE
+% !TeX encoding = utf8
+% !TeX root = manual 
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+\chapter{Data Requirements}
+
+\section{Integrated Data Access}
+The Stock Predictor application retrieves stock market data for the National Stock Exchange Fifty (NIFTY 50) index directly from a real-time financial data provider. This eliminates the need for users to manually upload datasets or prepare data files.
+
+\subsection{Data Source}
+Historical and current stock prices are automatically fetched using a live connection to Yahoo Finance. This ensures that the application always operates on up-to-date information without requiring any user intervention. The system downloads data such as:
+
+\begin{itemize}
+	\item Opening and closing prices of the NIFTY 50 index.
+	\item Daily high and low values.
+\end{itemize}
+
+\subsection{Date Coverage}
+The application supports predictions for any trading day from October 2007 up to the current date. Users may select either a past date (for backtesting) or a near-future date (e.g., tomorrow) to forecast the opening and closing prices.
+
+\section{No Manual Data Handling}
+\subsection{No File Upload Required}
+Unlike traditional forecasting tools, this application does not require users to upload any Comma-Separated Values (CSV) files. All data ingestion is managed in the backend, ensuring that the correct format, column structure, and completeness are maintained automatically.
+
+\subsection{Automated Preprocessing}
+Once the data is fetched from the remote source, the application performs internal preprocessing to prepare it for prediction. This includes:
+
+\begin{itemize}
+	\item Filtering for valid trading days (excluding weekends).
+	\item Cleaning and aligning feature values (e.g., open, close, high, low, volume).
+	\item Preparing input sequences for the forecasting models based on the most recent available data.
+\end{itemize}
+
+\section{Data Consistency and Quality}
+All datasets used by the application adhere to consistent structures verified at runtime. This ensures that forecasting models such as AutoRegressive Integrated Moving Average (ARIMA) and Long Short-Term Memory (LSTM) receive clean, well-structured input for reliable performance. By automating the data layer, the platform significantly reduces the risk of user error and improves forecast accuracy.

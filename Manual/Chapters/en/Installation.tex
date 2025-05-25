@@ -1,0 +1,34 @@
+%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Datum: 2019-03-05 08:03:15Z $
+% $Pfad: Installation.tex $
+% $Version: 4250 $
+% !TeX spellcheck = en_GB/de_DE
+% !TeX encoding = utf8
+% !TeX root = manual 
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+\chapter{Installation}
+
+\section{System Requirements}
+The Stock Predictor application is delivered as a cloud-hosted web-based platform, accessible via any modern web browser. To ensure smooth usage and real-time responsiveness, users should access the application from a device with a stable internet connection is necessary, particularly when handling larger data queries or visualizations.
+
+The application has been tested for compatibility with recent versions of major browsers, including Google Chrome (version 110 and above), Mozilla Firefox (version 100 and above), and Microsoft Edge (version 110 and above) on both Windows and macOS operating systems. While the application is accessible on mobile devices, optimal performance and full feature availability are ensured when accessed via desktop or laptop environments.
+
+\section{No Local Installation Required}
+Unlike traditional software distributions, this application does not require users to install any software packages, scripting environments, or dependencies on their local machine. The entire execution of forecasting models—such as AutoRegressive Integrated Moving Average (ARIMA) and Long Short-Term Memory (LSTM)—takes place on the cloud infrastructure.
+
+All data preprocessing, model inference, evaluation metric calculations, and visualizations are performed on the backend server. This architecture eliminates the need for local processing, dependency management, or compatibility adjustments across operating systems.
+
+\section{Accessing the Application}
+To use the Stock Predictor application:
+\begin{enumerate}
+	\item Visit the web link provided by the deployment platform or project maintainer.
+	\item Open the link in a supported browser to load the user interface.
+	\item Interact with the application by selecting a prediction model, choosing a date, and viewing the results in real time.
+\end{enumerate}
+
+No registration or sign-in is required for standard use, unless access restrictions are configured for organizational deployment. The browser interface replicates the look and feel of a desktop dashboard, providing users with immediate access to forecasting tools, evaluation metrics such as Root Mean Squared Error (RMSE) and Mean Absolute Percentage Error (MAPE), and dynamic visualizations. All outputs are generated on demand and do not require local data storage or computation.

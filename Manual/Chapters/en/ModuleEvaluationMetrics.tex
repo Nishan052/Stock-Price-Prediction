@@ -1,0 +1,60 @@
+%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Datum: 2019-03-05 08:03:15Z $
+% $Pfad: ModuleEvaluationMetrics.tex $
+% $Version: 4250 $
+% !TeX spellcheck = en_GB/de_DE
+% !TeX encoding = utf8
+% !TeX root = manual 
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+\chapter{Module Evaluation Metrics}
+
+Both models are evaluated using the following metrics:
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|p{6cm}|}
+		\hline
+		\textbf{Metric} & \textbf{Description} \\
+		\hline
+		\textbf{RMSE (Root Mean Squared Error)} & Penalizes larger errors \\
+		\hline
+		\textbf{MAPE (Mean Absolute Percentage Error)} & Scale-independent error measure \\
+		\hline
+	\end{tabular}
+	\caption{Evaluation metrics used for model performance}
+	\label{tab:evaluation_metrics}
+\end{table}
+
+ We have seen that we get the model attributes table also as an downloadable file . how do we measure which model performs better ? lets consider a sample output of the performance metric as shown below .
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Model} & \textbf{RMSE} & \textbf{MAPE} \\
+		\hline
+		\textbf{ARIMA} & 113.67 & 1.21\% \\
+		\hline
+		\textbf{LSTM}  & 101.45 & 1.05\% \\
+		\hline
+	\end{tabular}
+	\caption{Sample Evaluation Metric Output}
+	\label{tab:Sameple_Evaluation_Metric_Output}
+\end{table}
+
+lets understand the above metrics. lets take the LSTM values to begin with:
+
+\begin{itemize}
+	\item An RMSE of 101.45 means large errors are present, even if the average error (MAE) is lower.
+	\item A MAPE of 1.05\% means your predictions are, on average, 1.05\% off from the actual NIFTY 50 values.
+	\item LSTM outperforms ARIMA across all metrics , because It's more accurate on average (lower MAE). It has fewer large errors (lower RMSE).It also shows Smaller error relative to the actual index value (lower MAPE).
+\end{itemize}
+
+So, in plain terms: your LSTM model is making better, more consistent predictions for the NIFTY 50 than your ARIMA model based on this evaluation.
+
+

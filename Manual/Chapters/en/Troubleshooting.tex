@@ -1,0 +1,85 @@
+%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Datum: 2019-03-05 08:03:15Z $
+% $Pfad: Troubleshooting.tex $
+% $Version: 4250 $
+% !TeX spellcheck = en_GB/de_DE
+% !TeX encoding = utf8
+% !TeX root = manual 
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+\chapter{Troubleshooting}
+
+\section{Application Fails to Load in Browser}
+If the application does not load properly or remains stuck on the initial screen:
+
+\subsection{Possible Causes}
+\begin{itemize}
+	\item A slow or unstable internet connection may prevent the application from retrieving data.
+	\item The browser may be using an unsupported version or have JavaScript disabled.
+	\item Temporary server issues may affect availability.
+\end{itemize}
+
+\subsection{Recommended Actions}
+\begin{itemize}
+	\item Ensure you are connected to a reliable internet network.
+	\item Use a supported and updated web browser such as Google Chrome, Mozilla Firefox, or Microsoft Edge.
+	\item Refresh the browser page or clear the cache and try again after a few minutes.
+	\item If the issue persists, check for platform-specific service announcements.
+\end{itemize}
+
+\section{Prediction Does Not Trigger}
+If clicking the ``Predict'' button does not produce any output:
+
+\subsection{Likely Causes}
+\begin{itemize}
+	\item No forecasting model has been selected.
+	\item An invalid date was chosen (e.g., a weekend or a public holiday).
+\end{itemize}
+
+\subsection{Suggested Fixes}
+\begin{itemize}
+	\item Select a valid model from the dropdown list, either Long Short-Term Memory (LSTM) or AutoRegressive Integrated Moving Average (ARIMA).
+	\item Make sure the selected date corresponds to a valid trading day.
+\end{itemize}
+
+\section{Unexpected or Missing Results}
+If the predicted values appear to be incorrect or are not displayed at all:
+
+\subsection{Potential Reasons}
+\begin{itemize}
+	\item The selected date may be too close to the current day, leading to insufficient prior data.
+	\item For LSTM forecasts, the required input sequence of 60 prior trading days may not be available due to data gaps.
+	\item The financial data provider may not have released data for the selected day yet.
+\end{itemize}
+
+\subsection{Resolution Steps}
+\begin{itemize}
+	\item Choose a date that is at least one trading day ahead and well-supported by historical data.
+	\item Prefer dates for which financial markets have already closed and official data is likely available.
+	\item For Long Short-Term Memory (LSTM) forecasts, ensure at least 60 valid consecutive trading days precede the selected date.
+\end{itemize}
+
+\section{Performance and Compatibility Issues}
+If the interface becomes slow, unresponsive, or visually distorted:
+
+\subsection{Possible Causes}
+\begin{itemize}
+	\item The browser session may be overloaded with cached data or extensions.
+	
+\end{itemize}
+
+\subsection{Solutions}
+\begin{itemize}
+	\item Try restarting your browser or switching to a different supported browser.
+	\item Close other tabs or applications running in the background to free up memory.
+\end{itemize}
+
+
+
+
+
+

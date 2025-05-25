@@ -1,0 +1,29 @@
+# Core data & ML
+numpy>=1.24,<2.0
+pandas>=1.5,<2.0
+python-dateutil>=2.9.0,<3.0
+pytz>=2025.2,<2026
+
+scipy>=1.8,<2.0
+scikit-learn>=1.2,<2.0
+statsmodels>=0.13,<0.14
+pmdarima>=2.0,<3.0
+yfinance>=0.2,<0.3
+
+# Visualization
+matplotlib>=3.7,<4.0
+altair==4.2.2         # Altair 5.x demands TE≥4.10
+
+# TensorFlow (choose one)
+tensorflow==2.13.1              ; sys_platform != "darwin"
+tensorflow-macos==2.13.1        ; sys_platform == "darwin"
+tensorflow-estimator==2.13.0
+
+# Lock typing-extensions so TF-macOS is happy:
+typing_extensions>=3.6.6,<4.6.0
+
+# Testing & linting
+pytest>=8.3,<9.0
+pytest-cov>=6.1,<7.0
+coverage>=7.8,<8.0
+flake8

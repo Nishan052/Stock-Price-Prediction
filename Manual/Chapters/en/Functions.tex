@@ -1,0 +1,62 @@
+%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Datum: 2019-03-05 08:03:15Z $
+% $Pfad: Functions.tex $
+% $Version: 4250 $
+% !TeX spellcheck = en_GB/de_DE
+% !TeX encoding = utf8
+% !TeX root = manual 
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+\chapter{Functions and Features}
+
+\section{Graphical User Interface (GUI)}
+The Stock Predictor application features a modern, browser-based Graphical User Interface (GUI) that is designed to be intuitive, clean, and responsive. The layout allows users to interact with forecasting models in a visually guided manner without requiring any technical background.
+
+
+\section{Dual Model Integration}
+The application provides seamless integration of two distinct forecasting models, allowing users to choose the one best suited to their analytical needs.
+
+\section{Fully Automated Cloud-Based Predictions}
+All predictions—whether for historical backtesting or future forecasting—are generated dynamically using live data sources. The platform eliminates the distinction between static and dynamic modes found in desktop applications.
+
+\subsection{Real-Time Data Integration}
+The system connects to a live financial data provider to retrieve historical and current stock market data. This allows users to generate predictions for both past and near-future dates without needing to upload or manage datasets manually.
+
+\subsection{No Manual Updates Required}
+The application automatically fetches and preprocesses all required data in the background. There is no need for users to provide custom data files or interact with file systems. This ensures data consistency and eliminates human error in data preparation.
+
+\section{Interactive Output and Evaluation Feedback}
+
+\subsection{Real-Time Result Display}
+Once a prediction is generated, the results are immediately shown in the interface. The following information is presented clearly:
+\begin{itemize}
+	\item The predicted opening and closing prices for the selected date.
+	\item The actual values (if available) for historical dates.
+	\item Evaluation metrics including Root Mean Squared Error (RMSE) and Mean Absolute Percentage Error (MAPE).
+	\item Prediction intervals based on RMSE and MAPE, visualized alongside the main results.
+\end{itemize}
+
+\subsection{Integrated Logging and Notifications}
+Instead of traditional log files, the cloud application provides in-app notifications to alert users of data validation issues, model selection warnings, or connectivity errors. This helps users troubleshoot common problems without needing access to system logs or backend infrastructure.
+
+\subsection{Functional Controls and Interactivity}
+The application interface includes several interactive elements that allow users to operate the system efficiently and intuitively. Each control has been designed with a clear function:
+
+\begin{itemize}
+	\item \textbf{Model Selection Dropdown} – Enables the user to choose between the available forecasting models: Long Short-Term Memory (LSTM) or AutoRegressive Integrated Moving Average (ARIMA). The selected model determines the forecasting strategy to be executed.
+	
+\item \textbf{Date Picker Calendar} – Provides users with a scrollable calendar to select the date for prediction. The system enforces strict constraints to maintain data integrity:
+\begin{itemize}
+	\item \textbf{Historical Forecasting:} Users can select any past trading date from the year 2007 onwards for backtesting and analysis.
+	\item \textbf{Forward Prediction:} Only the next available trading day (typically tomorrow) is enabled for forecasting future prices.
+	\item \textbf{Date Restriction:} All dates beyond tomorrow are disabled to prevent unsupported predictions. Similarly, weekends and non-trading days are automatically excluded.
+	\item \textbf{Date Restriction:} All the Saturday and Sundays are disabled as market is closed on those days
+\end{itemize}
+	
+	\item \textbf{Prediction Trigger} – This control executes the selected forecasting model using the most recent market data. Upon activation, the system performs model inference and displays predicted prices, evaluation metrics, and visual plots on the interface.
+
+\end{itemize}

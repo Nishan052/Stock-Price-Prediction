@@ -1,0 +1,46 @@
+%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Datum: 2019-03-05 08:03:15Z $
+% $Pfad: ModelDescription.tex $
+% $Version: 4250 $
+% !TeX spellcheck = en_GB/de_DE
+% !TeX encoding = utf8
+% !TeX root = manual 
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+\chapter{Model Description}
+
+This chapter describes the two forecasting models integrated into the application: AutoRegressive Integrated Moving Average (ARIMA) and Long Short-Term Memory (LSTM). Each model is designed to independently predict both the opening and closing prices of the National Stock Exchange Fifty (NIFTY 50) index.
+
+\section{ARIMA Model}
+
+\subsection{Overview}
+The AutoRegressive Integrated Moving Average (ARIMA) model is a traditional statistical approach used for analyzing and forecasting univariate time series data. It relies on the assumption that future values of a variable can be explained by its own past values and past forecast errors. ARIMA is particularly effective in capturing linear trends and autocorrelations in historical financial data.
+
+In the context of this application, separate ARIMA configurations are used to model the opening and closing prices of the NIFTY 50 index. The model is fitted using historical stock data to understand patterns that can be extrapolated for future values.
+
+\subsection{Model Training}
+Each ARIMA model is trained using historical price data available up to the begining of the year 2025. During training, the model learns the optimal combination of autoregressive, differencing, and moving average parameters required to produce stable and accurate forecasts. These parameter settings are retained and reused for generating predictions, ensuring consistency across sessions.
+
+\subsection{Model Prediction}
+When a prediction is requested, the model is dynamically refitted using the most recent available historical data up to the day before the selected forecast date. The model then generates a one-day-ahead forecast. The resulting prediction is compared against the actual value (if available), and both are presented to the user along with numerical evaluation metrics. In addition, statistical confidence intervals based on historical prediction errors are computed to support interpretability.
+
+\section{LSTM Model}
+
+\subsection{Overview}
+The Long Short-Term Memory (LSTM) model is a type of recurrent neural network specifically designed to capture long-range dependencies in sequential data. It is particularly well-suited for applications where the temporal dynamics of multiple variables influence the target output. LSTM networks are known for their ability to model complex, non-linear relationships within financial time series data.
+
+In this application, two LSTM models are used to independently predict the opening and closing prices of the NIFTY 50 index. The models incorporate multiple features simultaneously, including both target and auxiliary variables, to enhance predictive accuracy.
+
+\subsection{Model Training}
+Each LSTM model is trained using a sequence of historical data comprising multiple variables. A fixed-size lookback window is used to define the sequence of input observations, which serve as the model's temporal context. Prior to training, all feature values are normalized to a uniform scale to improve learning stability and convergence. The training process involves optimizing internal network parameters to minimize prediction errors over the training period.
+
+\subsection{Model Prediction}
+For a given forecast date, the LSTM model extracts the most recent sequence of historical data to construct its input. This sequence is preprocessed in the same manner as the training data and then passed to the model to generate a forecast for the next day. The resulting prediction is transformed back into its original scale for interpretation.
+
+Alongside the predicted value, the system presents evaluation metrics based on recent data, including the Root Mean Squared Error (RMSE) and the Mean Absolute Percentage Error (MAPE). These metrics are used to generate prediction ranges that provide context and uncertainty estimates around the forecasted price. This enables users to understand not just the point estimate, but also the likely range within which the actual value may fall.
+
+

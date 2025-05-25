@@ -1,0 +1,82 @@
+\acswitchoff 
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{ List of figures}{v}{chapter*.1}%
+\contentsline {chapter}{ List of tables}{vii}{chapter*.2}%
+\contentsline {chapter}{ Acronyms}{ix}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}Overview}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Model Description}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}ARIMA Model}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Overview}{3}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Model Training}{3}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Model Prediction}{3}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}LSTM Model}{4}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Overview}{4}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Model Training}{4}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Model Prediction}{4}{subsection.2.2.3}%
+\contentsline {chapter}{\numberline {3}Installation}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}System Requirements}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}No Local Installation Required}{5}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Accessing the Application}{5}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Functions and Features}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Graphical User Interface (GUI)}{7}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Dual Model Integration}{7}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Fully Automated Cloud-Based Predictions}{7}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Real-Time Data Integration}{7}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}No Manual Updates Required}{7}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Interactive Output and Evaluation Feedback}{8}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Real-Time Result Display}{8}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Integrated Logging and Notifications}{8}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Functional Controls and Interactivity}{8}{subsection.4.4.3}%
+\contentsline {chapter}{\numberline {5}First Step}{11}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Accessing the Application}{11}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Opening the Platform}{11}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}User Interface Initialization}{11}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}No Setup or Installation Required}{11}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Data Requirements}{13}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Integrated Data Access}{13}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Data Source}{13}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Date Coverage}{13}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}No Manual Data Handling}{13}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}No File Upload Required}{13}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Automated Preprocessing}{13}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}Data Consistency and Quality}{14}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Running the Model}{15}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Choosing the Prediction Date}{15}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Date Selection Interface}{15}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Supported Date Range}{15}{subsection.7.1.2}%
+\contentsline {section}{\numberline {7.2}Selecting the Forecasting Model}{15}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Model Selection Interface}{15}{subsection.7.2.1}%
+\contentsline {section}{\numberline {7.3}Initiating the Prediction}{16}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Triggering the Forecast}{16}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Results Display}{16}{subsection.7.3.2}%
+\contentsline {section}{\numberline {7.4}Important Considerations}{16}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Module Evaluation Metrics}{19}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Maintenance}{21}{chapter.9}%
+\contentsline {section}{\numberline {9.1}System Monitoring and Logging}{21}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Purpose}{21}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}User Visibility}{21}{subsection.9.1.2}%
+\contentsline {section}{\numberline {9.2}Application Updates}{21}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Update Lifecycle}{21}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}No Manual Installation Required}{22}{subsection.9.2.2}%
+\contentsline {chapter}{\numberline {10}Troubleshooting}{23}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Application Fails to Load in Browser}{23}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Possible Causes}{23}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}Recommended Actions}{23}{subsection.10.1.2}%
+\contentsline {section}{\numberline {10.2}Prediction Does Not Trigger}{23}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}Likely Causes}{23}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}Suggested Fixes}{23}{subsection.10.2.2}%
+\contentsline {section}{\numberline {10.3}Unexpected or Missing Results}{24}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}Potential Reasons}{24}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}Resolution Steps}{24}{subsection.10.3.2}%
+\contentsline {section}{\numberline {10.4}Performance and Compatibility Issues}{24}{section.10.4}%
+\contentsline {subsection}{\numberline {10.4.1}Possible Causes}{24}{subsection.10.4.1}%
+\contentsline {subsection}{\numberline {10.4.2}Solutions}{24}{subsection.10.4.2}%
+\contentsline {chapter}{\numberline {11}FAQs}{25}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Do I need to install Python or any other software to use this application?}{25}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Can I predict stock prices for any date?}{25}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Do I need to upload any stock data?}{25}{section.11.3}%
+\contentsline {section}{\numberline {11.4}How do I know if the prediction was successful?}{25}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Can I use my own forecasting models?}{26}{section.11.5}%
+\contentsline {section}{\numberline {11.6}What should I do if the application freezes or stops responding?}{26}{section.11.6}%
+\contentsline {section}{\numberline {11.7}Will the application receive updates?}{26}{section.11.7}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

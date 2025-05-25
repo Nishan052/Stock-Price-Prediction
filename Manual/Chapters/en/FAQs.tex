@@ -1,0 +1,53 @@
+%%%%%%%%%%%%
+%
+% $Autor: Wings $
+% $Datum: 2019-03-05 08:03:15Z $
+% $Pfad: FAQs.tex $
+% $Version: 4250 $
+% !TeX spellcheck = en_GB/de_DE
+% !TeX encoding = utf8
+% !TeX root = manual 
+% !TeX TXS-program:bibliography = txs:///biber
+%
+%%%%%%%%%%%%
+
+\chapter{FAQs}
+
+\section{Do I need to install Python or any other software to use this application?}
+No. The Stock Predictor is a fully cloud-hosted application that runs in a standard web browser. All computations, forecasting models, and data processing are handled on remote servers. Users do not need to install Python, libraries, or any additional software on their local machine.
+
+\section{Can I predict stock prices for any date?}
+Yes, within the range supported by the financial data provider. The application allows users to forecast prices for:
+\begin{itemize}
+	\item Historical trading dates, for backtesting and model comparison.
+	\item The next available trading day, typically tomorrow, for forward-looking analysis.
+\end{itemize}
+Dates falling on weekends or market holidays are automatically excluded to ensure data validity.
+
+\section{Do I need to upload any stock data?}
+No. The application automatically retrieves historical and current stock market data directly from a live financial data provider. This eliminates the need for manual uploads, file formatting, or data validation by the user.
+
+\section{How do I know if the prediction was successful?}
+Once the ``Predict'' button is clicked, the application immediately displays the following in the interface:
+\begin{itemize}
+	\item Predicted values for both opening and closing prices.
+	\item Actual observed values (if available for historical dates).
+	\item Evaluation metrics such as Root Mean Squared Error (RMSE) and Mean Absolute Percentage Error (MAPE), along with corresponding confidence intervals.
+\end{itemize}
+If the prediction could not be completed (due to unavailable data or model constraints), the system will provide a clear notification.
+
+\section{Can I use my own forecasting models?}
+No. The application is built around validated and pre-integrated forecasting models, including Long Short-Term Memory (LSTM) and AutoRegressive Integrated Moving Average (ARIMA). Custom models are not supported in the cloud-hosted version to maintain consistency, accuracy, and security across all users.
+
+\section{What should I do if the application freezes or stops responding?}
+If the application becomes unresponsive:
+\begin{itemize}
+	\item Refresh your browser and ensure your internet connection is stable.
+	\item Confirm that your device meets the recommended minimum of 8 GB Random Access Memory (RAM).
+	\item Try switching to a supported browser such as Google Chrome or Mozilla Firefox.
+	\item If the issue persists, report it through the designated support contact.
+\end{itemize}
+
+\section{Will the application receive updates?}
+Yes. Because the application is deployed on a cloud platform, updates are managed centrally by the development team. Users automatically receive the latest improvements and new features without needing to install or download anything manually.
+
