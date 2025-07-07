@@ -1,96 +1,164 @@
+##
+# @mainpage NIFTY 50 Stock Price Forecasting App
+#
+# @section author Author
+# Nishan Chandrashekar Poojary  
+# Email: nishan.chandrashekar.poojary@stud.hs-emden-leer.com  
+#
+# Sandesh Nonavinakere Sunil  
+# Email: sandesh.nonavinakere.sunil@stud.hs-emden-leer.com  
+#
+# Created: June 2025
+#
+# @section overview Project Overview
+# This project implements a walk-forward one-step forecasting system for the Indian NIFTY 50 stock index
+# using two time series modeling techniques: ARIMA and LSTM.
+#
+# The system:
+# - Collects historical NIFTY 50 data from Yahoo Finance via the yFinance API.
+# - Cleans the data, filters for weekdays, and adds a COVID-19 dummy variable for the 2020 pandemic period.
+# - Performs predictions using:
+#   - **ARIMA**: A statistical model that captures autocorrelation and trends in univariate time series data.
+#   - **LSTM**: A deep learning model designed to handle long-term dependencies in multivariate sequences.
+# - Uses a rolling window with periodic retraining to maintain adaptability to recent market behavior.
+# - Computes error metrics including RMSE and MAPE to evaluate model performance.
+# - Displays and saves the forecasted values versus actual prices in graphical form.
+#
+# The application supports forecasting for both `Open` and `Close` prices, enabling side-by-side comparison
+# of model predictions across short-term financial windows.
+##
+
 import os
 import pandas as pd
 import numpy as np
 import logging
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 
-# Import data loading and modeling modules
-from data_handler.data_handler import load_nifty50_yfinance
-from models.arima.arima_model import run_arima
-from models.lstm.lstm_model import run_lstm
-from config import get_train_end_date
-import matplotlib.dates as mdates
+## @brief Load modules from internal project structure
+from dataHandler.dataHandler import loadNifty50Yfinance
+from models.arima.arimaModel import runArima
+from models.lstm.lstmModel import runLstm
 
-# --- Logging Setup ---
-# Configure logging to save debug and error messages to log.txt
-logging.basicConfig(filename='log.txt', level=logging.DEBUG,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "utils")))
+from utils.messageHandler import MessageHandler
+from utils.errorHandler import logError
 
-# --- Data Loading ---
-# Try to load and clean NIFTY 50 data using custom data handler.
+## @brief Instantiate the message handler for UI messages
+msg = MessageHandler()
+
+## @brief Configure logging to capture runtime errors and debug info
+logging.basicConfig(
+    filename='log.txt',
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+##
+# @section Data Loading
+#
+# Load historical NIFTY 50 data using the internal loader.
+# Errors are logged using the custom handler.
+##
 try:
-    df = load_nifty50_yfinance()
+    df = loadNifty50Yfinance()
 except Exception as e:
-    logging.error(f"Data loading error: {e}")
+    logError(e, context="Data Loading")
     raise
 
-# --- Model Setup ---
-# Specify which columns will be predicted.
-target_columns = ["Open", "Close"]
+##
+# @var targetColumns
+# List of features to forecast — limited to 'Open' and 'Close'.
+##
+targetColumns = ["Open", "Close"]
 
-# Run ARIMA and LSTM forecasting functions; outputs are dicts of DataFrames keyed by column.
-arima_results = run_arima(df, columns=target_columns)
-lstm_results = run_lstm(df, columns=target_columns)
+##
+# @brief Run ARIMA and LSTM forecasting on target columns
+#
+# @details
+# Returns dataframes with predictions indexed by date and column name.
+##
+arimaResults = runArima(df, columns=targetColumns)
+lstmResults = runLstm(df, columns=targetColumns)
 
-# --- Prediction Index Preparation ---
-# Find the set of dates for which all models produced a prediction (and both columns are available).
-arima_index = arima_results["Open"].dropna().index.intersection(arima_results["Close"].dropna().index)
-lstm_index = lstm_results["Open"].dropna().index.intersection(lstm_results["Close"].dropna().index)
-test_index = arima_index.intersection(lstm_index)
+##
+# @section Index Alignment
+#
+# Find the common forecastable dates between models and filter test data accordingly.
+##
+arimaIndex = arimaResults["Open"].dropna().index.intersection(arimaResults["Close"].dropna().index)
+lstmIndex = lstmResults["Open"].dropna().index.intersection(lstmResults["Close"].dropna().index)
+testIndex = arimaIndex.intersection(lstmIndex)
 
-# --- Next-Day Price Prediction Display ---
-# Print ARIMA and LSTM predictions for the first available date in the test set.
-if not test_index.empty:
-    tomorrow = test_index[0]
-    print("====== Tomorrow's Predicted Prices ======")
-    for col in target_columns:
-        arima_tomorrow = arima_results[col].loc[tomorrow]
-        lstm_tomorrow = lstm_results[col].loc[tomorrow]
-        print(f"{col} - ARIMA: {arima_tomorrow:.4f}, LSTM: {lstm_tomorrow:.4f}")
+##
+# @brief Print the next available day prediction if test data is available.
+##
+if not testIndex.empty:
+    tomorrow = testIndex[0]
+    print(msg.get("predicted_prices_header"))
+    for col in targetColumns:
+        arimaTomorrow = arimaResults[col].loc[tomorrow]
+        lstmTomorrow = lstmResults[col].loc[tomorrow]
+        print(msg.get("predicted_price_line").format(
+            column=col, arima=arimaTomorrow, lstm=lstmTomorrow
+        ))
 else:
-    print("Test index is empty; unable to extract tomorrow's prediction.")
+    print(msg.get("no_test_index"))
 
-# --- Model Evaluation ---
-# Evaluate model predictions (RMSE, MAPE) against actual values for each column.
-for col in target_columns:
-    actuals = df.loc[test_index, col]  # True values for test set
-    arima_preds = arima_results[col].reindex(test_index).dropna()
-    lstm_preds = lstm_results[col].reindex(test_index).dropna()
+##
+# @section Evaluation
+#
+# Compute RMSE and MAPE for both ARIMA and LSTM predictions over valid dates.
+##
+for col in targetColumns:
+    actuals = df.loc[testIndex, col]
+    arimaPreds = arimaResults[col].reindex(testIndex).dropna()
+    lstmPreds = lstmResults[col].reindex(testIndex).dropna()
 
-    # Only use dates available in all three: actuals, ARIMA, and LSTM
-    valid_index = actuals.index.intersection(arima_preds.index).intersection(lstm_preds.index)
-    actuals = actuals.loc[valid_index]
+    validIndex = actuals.index.intersection(arimaPreds.index).intersection(lstmPreds.index)
+    actuals = actuals.loc[validIndex]
 
     if not actuals.empty:
-        # Calculate error metrics for each model on valid dates
-        arima_rmse = np.sqrt(mean_squared_error(actuals, arima_preds.loc[valid_index]))
-        lstm_rmse = np.sqrt(mean_squared_error(actuals, lstm_preds.loc[valid_index]))
-        arima_mape = mean_absolute_percentage_error(actuals, arima_preds.loc[valid_index])
-        lstm_mape = mean_absolute_percentage_error(actuals, lstm_preds.loc[valid_index])
+        ##
+        # @brief Calculate error metrics
+        #
+        # @details
+        # RMSE: Root Mean Squared Error
+        # MAPE: Mean Absolute Percentage Error
+        ##
+        arimaRmse = np.sqrt(mean_squared_error(actuals, arimaPreds.loc[validIndex]))
+        lstmRmse = np.sqrt(mean_squared_error(actuals, lstmPreds.loc[validIndex]))
+        arimaMape = mean_absolute_percentage_error(actuals, arimaPreds.loc[validIndex])
+        lstmMape = mean_absolute_percentage_error(actuals, lstmPreds.loc[validIndex])
 
-        print(f"\n====== {col} Forecast Results ======")
-        print(f"ARIMA -> RMSE: {arima_rmse:.2f}, MAPE: {arima_mape:.2f}")
-        print(f"LSTM  -> RMSE: {lstm_rmse:.2f}, MAPE: {lstm_mape:.2f}")
+        print(msg.get("forecast_results_header").format(column=col))
+        print(msg.get("forecast_metrics").format(model="ARIMA", rmse=arimaRmse, mape=arimaMape))
+        print(msg.get("forecast_metrics").format(model="LSTM", rmse=lstmRmse, mape=lstmMape))
     else:
-        print(f"No valid actuals or predictions for {col}.")
+        print(msg.get("no_valid_forecast").format(column=col))
 
-# --- Save Forecast Results to CSV ---
-# Combine all predictions and actuals into one DataFrame for further analysis or sharing.
+##
+# @section Result Aggregation
+#
+# Combine model predictions and actuals into a single dataframe for plotting and export.
+##
 results = pd.DataFrame({
-    "ARIMA_Open": arima_results["Open"],
-    "ARIMA_Close": arima_results["Close"],
-    "LSTM_Open": lstm_results["Open"],
-    "LSTM_Close": lstm_results["Close"],
-    "Actual_Open": df["Open"].reindex_like(arima_results["Open"]),
-    "Actual_Close": df["Close"].reindex_like(arima_results["Close"]),
+    "ARIMA_Open": arimaResults["Open"],
+    "ARIMA_Close": arimaResults["Close"],
+    "LSTM_Open": lstmResults["Open"],
+    "LSTM_Close": lstmResults["Close"],
+    "Actual_Open": df["Open"].reindex_like(arimaResults["Open"]),
+    "Actual_Close": df["Close"].reindex_like(arimaResults["Close"]),
 })
-results.to_csv("forecast_results.csv", index=True)
 
-# --- Visualization ---
-# Plot and save graphs of Actual vs Predicted prices for each column.
-
-for col in target_columns:
+##
+# @section Plotting
+#
+# Generate and save comparison plots for predicted vs. actual values.
+##
+for col in targetColumns:
     plt.figure(figsize=(12, 6))
     plt.plot(results.index, results[f"Actual_{col}"], label="Actual", color="black")
     plt.plot(results.index, results[f"ARIMA_{col}"], label="ARIMA", linestyle="--")
@@ -101,12 +169,19 @@ for col in target_columns:
     plt.title(f"Actual vs Predicted {col} Prices")
     plt.legend()
 
-    # Format date ticks for better readability
+    ## @brief Set date formatting for x-axis
     ax = plt.gca()
     ax.xaxis.set_major_locator(mdates.AutoDateLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-    plt.xticks(rotation=45)  # Rotate x-axis date labels
+    plt.xticks(rotation=45)
 
     plt.tight_layout()
-    plt.savefig(f"forecast_plot_{col}.png")  # Save plot as PNG file
-    plt.show()  # Display plot in supported environments
+
+    ##
+    # @brief Save plot to file
+    #
+    # @details
+    # Plots are saved as PNG files using a naming convention that includes the target column.
+    ##
+    plt.savefig(f"forecast_plot_{col}.png")
+    plt.show()

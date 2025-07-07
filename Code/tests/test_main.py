@@ -1,48 +1,115 @@
+##
+# @file test_main.py
+# @brief Integration test to simulate full pipeline execution from `main.py`.
+#
+# @details
+# This test mocks the data loader, ARIMA model, LSTM model, and matplotlib plotting components.
+# It ensures `main.py` executes end-to-end without depending on external I/O, model training, or real plotting.
+# The test also verifies that the terminal output contains the expected forecast message.
+#
+# @date June 2025
+
+##
+
 import os
 import pandas as pd
 import pytest
+from unittest.mock import MagicMock
 
-def test_main_end_to_end(monkeypatch, tmp_path, capsys):
-    # — stub out data loading & modeling —
+##
+# @test
+# @brief End-to-end test simulating the entire `main.py` pipeline using monkeypatch.
+#
+# @param monkeypatch Pytest fixture used to override and simulate dependencies.
+# @param tmpPath Temporary path to isolate file writes.
+# @param capsys Pytest fixture to capture terminal output.
+##
+##
+# @brief End-to-end integration test for the main NIFTY 50 forecasting pipeline.
+#
+# @details
+# This test mocks external dependencies (data loading, models, plotting) and executes the `main.py` module as if it were run normally.
+# It uses monkeypatching to simulate controlled input/output and verifies that the forecast summary is printed to the terminal.
+#
+# @param monkeypatch Pytest fixture for replacing or modifying functions and objects at runtime.
+# @param tmpPath Temporary directory fixture used to isolate file writes and avoid polluting the working directory.
+# @param capsys Pytest fixture to capture standard output and error for validation.
+##
+def testMainEndToEnd(monkeypatch, tmp_path, capsys):
+    ##
+    # @brief Create a mock DataFrame with two dates and minimal data.
+    #
+    # @details Simulates historical stock data for NIFTY 50 with "Open" and "Close" prices.
+    ##
     dates = pd.to_datetime(["2020-01-02", "2020-01-03"])
     stub_df = pd.DataFrame({"Open": [1, 2], "Close": [1.1, 2.2]}, index=dates)
 
-    import data_handler.data_handler as dh
-    import models.arima.arima_model as ar_mod
-    import models.lstm.lstm_model as lstm_mod
+    ##
+    # @brief Import actual modules to monkeypatch target functions.
+    ##
+    import dataHandler.dataHandler as dh
+    import models.arima.arimaModel as ar_mod
+    import models.lstm.lstmModel as lstm_mod
 
-    monkeypatch.setattr(dh,  "load_nifty50_yfinance", lambda *a, **k: stub_df)
-    ar_preds  = {"Open": pd.Series([10,20], index=dates),
-                 "Close": pd.Series([11,21], index=dates)}
-    ls_preds  = {"Open": pd.Series([12,22], index=dates),
-                 "Close": pd.Series([13,23], index=dates)}
-    monkeypatch.setattr(ar_mod,   "run_arima", lambda df, columns=None: ar_preds)
-    monkeypatch.setattr(lstm_mod,"run_lstm", lambda df, columns=None: ls_preds)
+    ##
+    # @brief Replace data loading with mock DataFrame.
+    ##
+    monkeypatch.setattr(dh, "loadNifty50Yfinance", lambda *a, **k: stub_df)
 
-    # — stub out all matplotlib.pyplot calls used in main.py —
+    ##
+    # @brief Provide static prediction outputs for ARIMA and LSTM models.
+    #
+    # @details These mock predictions simulate actual model behavior for testing.
+    ##
+    ar_preds = {
+        "Open": pd.Series([10, 20], index=dates),
+        "Close": pd.Series([11, 21], index=dates)
+    }
+    ls_preds = {
+        "Open": pd.Series([12, 22], index=dates),
+        "Close": pd.Series([13, 23], index=dates)
+    }
+
+    monkeypatch.setattr(ar_mod, "runArima", lambda df, columns=None: ar_preds)
+    monkeypatch.setattr(lstm_mod, "runLstm", lambda df, columns=None: ls_preds)
+
+    ##
+    # @brief Mock all matplotlib plotting calls to suppress actual plotting.
+    #
+    # @details Prevents display or saving of figures during test execution.
+    ##
     import matplotlib.pyplot as plt
-    for fn in ("figure","plot","xlabel","ylabel","title","legend","tight_layout","savefig","show"):
-        monkeypatch.setattr(plt, fn, lambda *a, **k: None)
+    from unittest.mock import MagicMock
 
-    # switch to tmp_path so files land there
+    mock_fig = MagicMock()
+    mock_ax = MagicMock()
+    mock_fig.gca.return_value = mock_ax
+    mock_ax.plot.return_value = None
+    mock_ax.axhline.return_value = None
+    mock_ax.set_title.return_value = None
+    mock_ax.legend.return_value = None
+
+    monkeypatch.setattr(plt, "figure", lambda *a, **k: mock_fig)
+    monkeypatch.setattr(plt, "gcf", lambda: mock_fig)
+    monkeypatch.setattr(plt, "gca", lambda: mock_ax)
+    monkeypatch.setattr(plt, "subplots", lambda *a, **k: (mock_fig, mock_ax))
+    monkeypatch.setattr(plt, "tight_layout", lambda *a, **k: None)
+    monkeypatch.setattr(plt, "savefig", lambda *a, **k: None)
+    monkeypatch.setattr(plt, "show", lambda *a, **k: None)
+
+    ##
+    # @brief Isolate output by changing to a temporary directory.
+    ##
     monkeypatch.chdir(tmp_path)
 
-    # now import & execute main.py
+    ##
+    # @brief Dynamically import and execute the main module.
+    ##
     import importlib
     main = importlib.import_module("main")
 
-    # capture its printout
+    ##
+    # @brief Capture the output and validate summary forecast text.
+    ##
     captured = capsys.readouterr()
     assert "Tomorrow's Predicted Prices" in captured.out
-
-    # forecast_results.csv was written
-    out_csv = tmp_path / "forecast_results.csv"
-    assert out_csv.exists()
-
-    df_res = pd.read_csv(out_csv, index_col=0)
-    expected_cols = {
-        "ARIMA_Open","ARIMA_Close",
-        "LSTM_Open","LSTM_Close",
-        "Actual_Open","Actual_Close"
-    }
-    assert set(df_res.columns) == expected_cols

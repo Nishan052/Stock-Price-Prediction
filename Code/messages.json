@@ -1,0 +1,24 @@
+{
+    "loading_nifty_data": "Loading NIFTY 50 index data from Yahoo Finance...",
+    "filtering_weekdays": "Filtering only weekdays...",
+    "adding_covid_dummy": "Adding COVID dummy variable...",
+    "dropping_na_close": "Dropping rows with missing Close values...",
+    "selecting_columns": "Selecting relevant columns...",
+    "sorting_by_date": "Sorting data by date...",
+    "arima_training_failed": "ARIMA training failed for {column} on {date}: {error}",
+    "arima_model_saved": "Saved ARIMA model for {column} to {path}",
+    "arima_model_save_failed": "Failed to save ARIMA model for {column}: {error}",
+    "lstm_training_skipped_insufficient_data": "[{date}] Skipped due to insufficient window for training.",
+    "lstm_model_saved": "Saved LSTM model and scaler for '{column}'",
+    "lstm_train_error": "LSTM Train Error for {column} on {date}: {error}",
+    "lstm_predict_error": "LSTM Predict Error for {column} on {date}: {error}",
+    "data_loading_error": "Data loading error: {error}",
+    "predicted_prices_header": "====== Tomorrow's Predicted Prices ======",
+    "predicted_price_line": "{column} - ARIMA: {arima:.4f}, LSTM: {lstm:.4f}",
+    "no_test_index": "Test index is empty; unable to extract tomorrow's prediction.",
+    "forecast_results_header": "\n====== {column} Forecast Results ======",
+    "forecast_metrics": "{model} -> RMSE: {rmse:.2f}, MAPE: {mape:.2f}",
+    "no_valid_forecast": "No valid actuals or predictions for {column}.",
+    "error_generic": "An unexpected error occurred"
+    
+  }

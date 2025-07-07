@@ -1,0 +1,13 @@
+streamlit
+yfinance
+pandas
+numpy
+scikit-learn
+joblib
+matplotlib
+statsmodels
+
+# Compatible Keras + TensorFlow (streamlit cloud friendly)
+tensorflow==2.12.0
+keras==2.12.0
+ml-dtypes==0.2.0

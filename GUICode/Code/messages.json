@@ -1,0 +1,24 @@
+{
+    "gui": {
+      "title": "📈 NIFTY 50 Stock Price Predictor",
+      "select_model_warning": "Please select a model.",
+      "weekend_error": "Weekend selected. Please choose a weekday (Monday to Friday).",
+      "insufficient_data": "Not enough historical data available for prediction.",
+      "actual_data_missing": "Actual {col} data for {date} is not available.",
+      "actual_fetch_error": "Could not fetch actual {col} price.",
+      "prediction_failed": "Prediction failed: {error}",
+      "rmse_mape_explanation": "### ℹ️ RMSE and MAPE Range Explanation\n\n- **RMSE Range**: This tells you how far the predicted price could be from the real price. For example, if the predicted price is ₹10,000 and the RMSE range is ₹9,800–₹10,200, it means the actual price may be around ₹10,000, but could vary by a few hundred rupees.\n\n- **MAPE Range**: This shows the possible price range in percentage terms. It tells you how much the prediction could be off by, based on past performance. For example, if the MAPE range is ₹9,700–₹10,300, then the actual price is likely to fall somewhere in that range.\n\nThese ranges help interpret the model's accuracy, not provide financial advice.",
+      "prediction_success": "[{model}] Predicted {col}: {value}",
+      "actual_success": "Actual {col} on {date}: {value}",
+      "summary_table_title": "### Prediction Summary Table",
+      "fetching_actuals_error": "Fetching actuals for {column}",
+      "date_input_label": "Select prediction date",
+      "predict_button": "Predict Open & Close for Selected Date",
+      "prediction_header": "{col} Price Prediction for {date}"
+    },
+
+    "log_contexts": {
+      "prediction_block": "Prediction block",
+      "fetching_actuals": "Fetching actuals for {col}"
+    }
+  }
