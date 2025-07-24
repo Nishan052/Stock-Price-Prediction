@@ -1,6 +1,6 @@
 # NIFTY 50 Forecasting Project
 
-Live Demo: 🔗 nifty50indexprediction.streamlit.app
+**🔗 Live Demo:** [nifty50indexprediction.streamlit.app](https://nifty50indexprediction.streamlit.app/)
 
 This project implements a walk‑forward one‑step forecasting framework for the NIFTY 50 stock index using two different modeling approaches:
 
