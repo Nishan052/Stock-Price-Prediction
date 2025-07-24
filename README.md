@@ -146,8 +146,6 @@ Below is the list of key folders and modules in this project along with clickabl
 
 ---
 
-🔗 **GitHub Repository:** [github.com/Wings-hub/BA25-05-Time-Series](https://github.com/Wings-hub/BA25-05-Time-Series)
-
 
 ## Usage
 
